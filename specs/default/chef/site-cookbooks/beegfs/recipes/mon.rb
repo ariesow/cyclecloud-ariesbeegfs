@@ -10,7 +10,8 @@ include_recipe "::default"
 end
 
 execute 'install_graf_rpm' do
-    command 'yum install -y https://dl.grafana.com/oss/release/grafana-5.4.2-1.x86_64.rpm'
+    #command 'yum install -y https://dl.grafana.com/oss/release/grafana-5.4.2-1.x86_64.rpm'
+    command 'yum install -y grafana-6.7.0-1.x86_64'
     not_if 'rpm -qa | grep grafana-5.4.2-1.x86_64'
 end
 
@@ -56,11 +57,9 @@ file "#{chef_state}/graf_dashboard.marker" do
     action :nothing
 end
 
-execute 'import_dashboards' do
-    command "/opt/beegfs/scripts/grafana/import-dashboards default"
-    creates "#{chef_state}/graf_dashboard.marker"
-    returns [0,7]
-    notifies :create, "file[#{chef_state}/graf_dashboard.marker]", :immediately
-end
-
-
+#execute 'import_dashboards' do
+#    command "/opt/beegfs/scripts/grafana/import-dashboards default"
+#    creates "#{chef_state}/graf_dashboard.marker"
+#    returns [0,7]
+#    notifies :create, "file[#{chef_state}/graf_dashboard.marker]", :immediately
+#end

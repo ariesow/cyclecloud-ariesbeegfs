@@ -27,7 +27,7 @@ default['beegfs']['client']['manager_ipaddress'] = nil
 default['beegfs']['client']['cluster_name'] = nil
 
 # The mount point for the BeeGFS clients
-default['beegfs']['client']['mount_point'] = '/mnt/beegfs'
+default['beegfs']['client']['mount_point'] = '/mnt/ariesbeegfs'
 
 # Attribute examples. 'example' disk mount is not used.
 default['beegfs']['disk_mounts']['example']['mountpoint'] = '/datadisk'

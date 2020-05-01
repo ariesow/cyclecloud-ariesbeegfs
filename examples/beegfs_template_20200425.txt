@@ -3,7 +3,7 @@
 ## Cluster Configuration File ##
 ################################
 
-[cluster AriesBeeGFS]
+[cluster beegfs]
 FormLayout = selectionpanel
 Category = Filesystems
 IconUrl = https://www.beegfs.io/content/wp-content/uploads/pics/beegfs-logo/BeeGFS_Logo_137x87.png
@@ -28,7 +28,7 @@ IconUrl = https://www.beegfs.io/content/wp-content/uploads/pics/beegfs-logo/BeeG
         cyclecloud.mounts.storage.disabled = true
         cyclecloud.mounts.meta.disabled = true
 
-        [[[cluster-init ariesbeegfs:default:$ProjVersion]]]
+        [[[cluster-init beegfs:default:$ProjVersion]]]
 
     [[node manager]]
     MachineType = $ManagerVMType
@@ -37,7 +37,7 @@ IconUrl = https://www.beegfs.io/content/wp-content/uploads/pics/beegfs-logo/BeeG
         [[[configuration]]]
         cyclecloud.maintenance_converge.enabled = true
 
-        [[[cluster-init ariesbeegfs:manager:$ProjVersion]]]
+        [[[cluster-init beegfs:manager:$ProjVersion]]]
 
         [[[network-interface eth0]]]
         AssociatePublicIpAddress = $UsePublicNetwork
@@ -70,7 +70,7 @@ IconUrl = https://www.beegfs.io/content/wp-content/uploads/pics/beegfs-logo/BeeG
     Mount = storage
 
 
-    [[[cluster-init ariesbeegfs:storage:$ProjVersion]]]
+    [[[cluster-init beegfs:storage:$ProjVersion]]]
 
     [[nodearray metadata]]
     MachineType = $MetadataVMType
@@ -93,7 +93,7 @@ IconUrl = https://www.beegfs.io/content/wp-content/uploads/pics/beegfs-logo/BeeG
     meta.fs_type = ext4
     meta.raid_level = 0
 
-    [[[cluster-init ariesbeegfs:metadata:$ProjVersion]]]
+    [[[cluster-init beegfs:metadata:$ProjVersion]]]
 
     [[nodearray client]]
     MachineType = $ClientVMType
@@ -101,7 +101,7 @@ IconUrl = https://www.beegfs.io/content/wp-content/uploads/pics/beegfs-logo/BeeG
     # The initial number of cores of this type to start when the cluster starts
     InitialCount= $InitialClientCount
 
-        [[[cluster-init ariesbeegfs:client:$ProjVersion]]]
+        [[[cluster-init beegfs:client:$ProjVersion]]]
 
     [[nodearray monitor]]
     MachineType = $MonitorVMType
@@ -111,7 +111,7 @@ IconUrl = https://www.beegfs.io/content/wp-content/uploads/pics/beegfs-logo/BeeG
     InitialCount= 0
     MaxCount = 1
 
-        [[[cluster-init ariesbeegfs:mon:$ProjVersion]]]
+        [[[cluster-init beegfs:mon:$ProjVersion]]]
 
 [parameters About]
 Order = 1
@@ -136,37 +136,37 @@ Order = 10
         Label = Region
         Description = Deployment Location
         ParameterType = Cloud.Region
-        DefaultValue = southeastasia
+        DefaultValue = westus2
 
         [[[parameter ManagerVMType]]]
         Label = Manager VM
         Description = The VM type for BeeGFS manager node.
         ParameterType = Cloud.MachineType
-        DefaultValue = Standard_B2ms
+        DefaultValue = Standard_D2_v3
 
         [[[parameter MetadataVMType]]]
         Label = Metadata VM
         Description = The VMType type for metadata nodes
         ParameterType = Cloud.MachineType
-        DefaultValue = Standard_B2ms
+        DefaultValue = Standard_D16s_v3
 
         [[[parameter StorageVMType]]]
         Label = Storage VM
         Description = The VMType type for storage nodes
         ParameterType = Cloud.MachineType
-        DefaultValue = Standard_B2ms
+        DefaultValue = Standard_D16s_v3
 
         [[[parameter ClientVMType]]]
         Label = Client VM
         Description = The VMType type for client nodes, for testing 
         ParameterType = Cloud.MachineType
-        DefaultValue = Standard_B2ms
+        DefaultValue = Standard_D2_v3
 
         [[[parameter MonitorVMType]]]
         Label = Monitor VM
         Description = The VM type for BeeGFS manager node.
         ParameterType = Cloud.MachineType
-        DefaultValue = Standard_B2ms
+        DefaultValue = Standard_D2_v3
         
 
     [[parameters Networking]]
@@ -196,17 +196,17 @@ Order = 20
         [[[parameter StorageDiskSize]]]
         Label = OSS Disk Size (GB)
         Description = Size (GB) of each 2 premium disk attached to each OSS. Disks are raided in RAID0 configuration.
-        DefaultValue = 16
+        DefaultValue = 1024
 
         [[[parameter MetadataDiskSize]]]
         Label = MDS Disk Size (GB)
         Description = Size (GB) of each 2 premium disk attached to each OSS. Disks are raided in RAID0 configuration.
-        DefaultValue = 16
+        DefaultValue = 1024
 
         [[[parameter BeeGFSRoot ]]]
         Label = BeeGFS Dir 
         Description = The root directory for BeeGFS data on the MDT, MGS and OSS servers
-        DefaultValue = /data/beegfs
+        DefaultValue = /data/beegfs    
 
         [[[parameter InitialStorageCount]]]
         Label = Storage VM Count
@@ -261,7 +261,7 @@ Order = 20
 	
         [[[parameter ProjVersion]]]
         Label = Project Version
-        DefaultValue = 1.0.0
+        DefaultValue = 1.4.2 
 
     [[parameters Advanced Networking]]
     Description = Advanced networking settings
